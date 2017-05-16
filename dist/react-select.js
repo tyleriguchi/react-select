@@ -715,10 +715,12 @@ var Option = (0, _createReactClass2['default'])({
 		if (event.target.tagName !== 'A' || !('href' in event.target)) {
 			return;
 		}
-		if (event.target.target) {
-			window.open(event.target.href, event.target.target);
-		} else {
-			window.location.href = event.target.href;
+		if (typeof window === 'object') {
+			if (event.target.target) {
+				window.open(event.target.href, event.target.target);
+			} else {
+				window.location.href = event.target.href;
+			}
 		}
 	},
 
@@ -1083,7 +1085,7 @@ var Select = (0, _createReactClass2['default'])({
 		}
 		if (this.props.scrollMenuIntoView && this.menuContainer) {
 			var menuContainerRect = this.menuContainer.getBoundingClientRect();
-			if (window.innerHeight < menuContainerRect.bottom + this.props.menuBuffer) {
+			if (typeof window === 'object' && window.innerHeight < menuContainerRect.bottom + this.props.menuBuffer) {
 				window.scrollBy(0, menuContainerRect.bottom + this.props.menuBuffer - window.innerHeight);
 			}
 		}
